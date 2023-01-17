@@ -1,13 +1,98 @@
 <?php
+// タイムゾーンをセット
+// なんとなく上の方がいいかなって
+// by陰キャ男子
+date_default_timezone_set("Asia/Tokyo");
+?>
+
+<?php
+// テーブルを作成する
+$servername = "localhost";
+$username = "xs810371_256";
+$password = "f7695c44";
+$dbname = "xs810371_256ch";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Create table
+$sql = "CREATE TABLE userdata (
+    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    EMAIL VARCHAR(255) NOT NULL,
+    PASSWORD VARCHAR(255) NOT NULL,
+    DATE TIMESTAMP,
+    ADMIN TINYINT(1) DEFAULT 0,
+    UUID VARCHAR(255)
+    )";
+
+if ($conn->query($sql) === TRUE) {
+    // テーブル作成完了
+} else {
+    // テーブル作成失敗
+}
+
+$conn->close();
+?>
+
+<?php
 
 $result = "";
 
 // 新規登録
 if (isset($_POST['submit'])) {
+    
     // 暗号学的にセキュアなパスワードの作成
     $bytes = random_bytes(5);
     $hex = bin2hex($bytes);
     $password = base_convert($hex, 16, 36);
+
+    // アカウントのUUID作成
+    function generateRandomString($length) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+    $uuid = generateRandomString(8) . "-" . generateRandomString(4) . "-" . generateRandomString(4) . "-" . generateRandomString(4) . "-" . uniqid();
+
+    // メールアドレスの重複チェック
+
+    
+    
+    // プログラムの実行日時 / アカウントの作成日時を取得
+    $date = date("Y-m-d H:i:s");
+
+
+    // データベースに情報を登録
+    $servername = "localhost";
+    $username = "xs810371_256";
+    $password = "f7695c44";
+    $dbname = "xs810371_256ch";
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    $sql = "INSERT INTO userdata (EMAIL, PASSWORD, DATE, ADMIN, UUID)
+    VALUES ('$email', '$password', '$date', '$admin', '$uuid')";
+    if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    $conn->close();
+
+
+    // ユーザーに初期パスワードを送信
     $email = $_POST['email'];
     $to = $email;
     $subject = "【重要】256ch｜会員登録完了のお知らせ｜初期パスワード添付";
