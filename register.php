@@ -41,10 +41,14 @@ $conn->close();
 <?php
 
 $result = "";
+$password = "";
 
 // 新規登録
 if (isset($_POST['submit'])) {
-    
+    // メールアドレスを変数に格納
+    $email = $_POST['email'];
+
+
     // 暗号学的にセキュアなパスワードの作成
     $bytes = random_bytes(5);
     $hex = bin2hex($bytes);
@@ -62,13 +66,30 @@ if (isset($_POST['submit'])) {
     }
     $uuid = generateRandomString(8) . "-" . generateRandomString(4) . "-" . generateRandomString(4) . "-" . generateRandomString(4) . "-" . uniqid();
 
-    // メールアドレスの重複チェック
 
+    // メールアドレスの重複チェック
+    $servername = "localhost";
+    $username = "xs810371_256";
+    $password = "f7695c44";
+    $dbname = "xs810371_256ch";
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    $sql = "SELECT EMAIL FROM userdata WHERE LOWER(EMAIL) = LOWER('$email')";
+    $result = $conn->query($sql);
+    
+    if ($result->num_rows > 0) {
+        $result = "<p class='text-danger'>既にこのメールアドレスは既に登録されているか無効の可能性があります</p>";
+        echo $result;
+        exit(); // 中断処理
+    } else {
+        // insert data into the table
+    }
+    $conn->close();
     
     
     // プログラムの実行日時 / アカウントの作成日時を取得
     $date = date("Y-m-d H:i:s");
 
+    
 
     // データベースに情報を登録
     $servername = "localhost";
@@ -84,16 +105,15 @@ if (isset($_POST['submit'])) {
     $sql = "INSERT INTO userdata (EMAIL, PASSWORD, DATE, ADMIN, UUID)
     VALUES ('$email', '$password', '$date', '$admin', '$uuid')";
     if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
+        // データベース登録完了
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        // データベース登録エラー
     }
 
     $conn->close();
 
 
     // ユーザーに初期パスワードを送信
-    $email = $_POST['email'];
     $to = $email;
     $subject = "【重要】256ch｜会員登録完了のお知らせ｜初期パスワード添付";
     $message = "$email 様 \n\n平素より256ch.netをご愛顧いただきまして誠にありがとうございます\nお客様の会員登録処理が完了したことをお知らせいたします。\n\n初期パスワード : $password\n\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n『256教信者が集まる夢の電子掲示板 - 256ch - 』\n■URL : https://256ch.net/\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
