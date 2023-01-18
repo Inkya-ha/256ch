@@ -2,7 +2,7 @@ body{
     text-align: center;
 }
 
-a{
+a {
     text-decoration: none;
     color: #16aa56;
 }
@@ -12,7 +12,7 @@ a{
 }
 
 body {
-	background: #2c3338;
+	background: #256;
 	color: #606468;
 	font: 87.5%/1.5em 'Noto Sans JP', sans-serif;
 	margin: 0;
@@ -90,7 +90,7 @@ after {
 	border-radius: 3px;
 	color: white;
 	cursor: pointer;
-	transition: background 0.3s ease-in-out;
+	transition: background 0.3s ease-in-out; /*ここ変えたほうがいいかもね by256*/
 }
 
 #login form input[type="submit"]:hover {
@@ -175,7 +175,7 @@ hr{
 }
 
 .popular-box{
-    box-shadow: 0px 0px 20px -8px #777777;
+    box-shadow: 0px 0px 20px -8px #888;
     border-radius: 10px;
     margin-left: 5%;
     margin-right: 5%;
