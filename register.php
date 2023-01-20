@@ -9,11 +9,11 @@ date_default_timezone_set("Asia/Tokyo");
 // テーブルを作成する
 $servername = "localhost";
 $username = "xs810371_256";
-$password = "f7695c44";
+$dbpassword = "f7695c44";
 $dbname = "xs810371_256ch";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $dbpassword, $dbname);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -40,16 +40,19 @@ $conn->close();
 
 <?php
 
-$result = "";
-$password = "";
+
+
+
+
+$result = NULL;
+$password = NULL;
 
 // 新規登録
 if (isset($_POST['submit'])) {
     // メールアドレスを変数に格納
     $email = $_POST['email'];
 
-
-    // 暗号学的にセキュアなパスワードの作成
+    // 暗号学的にセキュアなパスワードを作成
     $bytes = random_bytes(5);
     $hex = bin2hex($bytes);
     $password = base_convert($hex, 16, 36);
@@ -70,9 +73,9 @@ if (isset($_POST['submit'])) {
     // メールアドレスの重複チェック
     $servername = "localhost";
     $username = "xs810371_256";
-    $password = "f7695c44";
+    $dbpassword = "f7695c44";
     $dbname = "xs810371_256ch";
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($servername, $username, $dbpassword, $dbname);
     $sql = "SELECT EMAIL FROM userdata WHERE LOWER(EMAIL) = LOWER('$email')";
     $result = $conn->query($sql);
     
@@ -84,20 +87,29 @@ if (isset($_POST['submit'])) {
         // insert data into the table
     }
     $conn->close();
+
+
+    // +記号検知
+    if (strpos($email, '+') !== false) {
+        $result ="<p class='text-danger'>メールアドレスに使用できない文字が含まれています</p>";
+        echo $result;
+        exit();
+    } else {
+        // rest of your code here
+    }
+    
     
     
     // プログラムの実行日時 / アカウントの作成日時を取得
     $date = date("Y-m-d H:i:s");
 
-    
-
     // データベースに情報を登録
     $servername = "localhost";
     $username = "xs810371_256";
-    $password = "f7695c44";
+    $dbpassword = "f7695c44";
     $dbname = "xs810371_256ch";
     // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($servername, $username, $dbpassword, $dbname);
     // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
@@ -127,9 +139,6 @@ if (isset($_POST['submit'])) {
     }
 
 }
-
-
-
 
 
 ?>

@@ -175,9 +175,15 @@ hr{
 }
 
 .popular-box{
+	background-color: #282828;
     box-shadow: 0px 0px 20px -8px #888;
     border-radius: 10px;
     margin-left: 5%;
     margin-right: 5%;
     padding: 5px;
+}
+
+.pb-mg{
+	padding: 10px;
+	color: white;
 }

@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -15,6 +19,26 @@
             256教信者が集まる夢の電子掲示板
         </p>
         <div style="margin-top: 20px;"></div><hr>
+        <div style="margin-top: 10px;"></div>
+        <div class="popular-box anim-box slidein is-animated">
+            <p class="fs-3 anim-box popup is-animated">アカウント情報</p>
+
+            <div class="pb-mg text-start">
+                <p class="fs-5">メールアドレス : <?php
+                if (isset($_SESSION["login"])) {
+                    $email = $_SESSION["login"];
+                    echo "<span class='fs-5'>$email</span>";
+                }else{
+                    echo "<span class='fs-5 text-danger'>未ログイン</span>";
+                }
+                ?></p>
+                <?php
+                if (isset($_SESSION["login"])) {
+                    echo "<a class='fs-5' href='./logout.php'>ログアウト</a>";
+                }
+                ?>
+            </div>
+        </div>
         <div style="margin-top: 10px;"></div>
         <div class="popular-box anim-box slidein is-animated">
             <p class="fs-3 anim-box popup is-animated">人気急上昇スレ</p>
