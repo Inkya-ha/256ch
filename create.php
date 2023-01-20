@@ -7,7 +7,9 @@
 <body>
     <?php include_once __DIR__ . "/static/header/header.php"; ?>
 
-
+    <main>
+        
+    </main>
     
     <?php include_once __DIR__ . "/static/footer/footer.php"; ?>
 </body>

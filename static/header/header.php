@@ -1,4 +1,4 @@
-<header class="fixed-top" id="navbar">
+<header class="fixed-top anim-box slide-skew is-animated" id="navbar">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="./">256CH</a>
@@ -8,16 +8,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="./">トップページ</a>
+                        <a class="nav-link active anim-box slidein is-animated" aria-current="page" href="./">トップページ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="./thread">スレッド一覧</a>
+                        <a class="nav-link active anim-box slidein is-animated" aria-current="page" href="./thread">スレッド一覧</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="./Privacy">プライバシーポリシー</a>
+                        <a class="nav-link active anim-box slidein is-animated" aria-current="page" href="./Privacy">プライバシーポリシー</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="./login">ログイン</a>
+                        <a class="nav-link active anim-box slidein is-animated" aria-current="page" href="./login">ログイン</a>
                     </li>
                 </ul>
             </div>
