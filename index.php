@@ -46,6 +46,10 @@ session_start();
             // ここに急上昇スレを表示するプログラムを書きたい(願望)
             ?>
         </div>
+        <div style="margin-top: 10px;"></div>
+        <div class="popular-box anim-box slidein is-animated">
+            <p class="fs-3 anim-box popup is-animated">スレッド作成</p>
+            <a class="fs-5 text-success" href="./create">スレッド作成ページ</a>
     </main>
     
     <?php include_once __DIR__ . "/static/footer/footer.php"; ?>
