@@ -277,3 +277,37 @@ hr{
 	transform: translateY(0px);
 }
 
+.main-mg-box{
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+
+
+
+.task_value#todo {
+	height: 1.5rem;
+}
+
+.task_submit#todo {
+	height: 2rem;
+}
+
+#table {
+	background-color: #256;
+	width: 50%;
+	height: 400px;
+	border-radius: 1rem;
+	margin-top: 2rem;
+}
+
+h2#todo {
+	font-size: 1.2rem;
+	padding: 1rem;
+}
+
+li#todo {
+	margin: 2rem 2rem 2rem 0;
+	display: flex;
+	justify-content: space-between;
+}
