@@ -31,6 +31,8 @@ $pdo = connect();
         $threadId = $pdo->lastInsertId();
         $thread = new Thread($threadId);
         $thread->new_less($_POST['body'],$user->uuid());
+        header("Location: thread.php?id=" . $threadId);
+        exit();
         // print_r('<pre>');
 	    // print_r($theardId);
 	    // print_r('</pre>');
