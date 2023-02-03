@@ -1,6 +1,7 @@
 <?php 
 require_once __DIR__ . "/connect_db.php";//pdo接続用 
 require_once __DIR__ . "/class/User.php";//Userクラス 
+require_once __DIR__ . "/class/Thread.php";//Threadクラス 
 session_start();
 $pdo = connect();
 ?>
@@ -11,7 +12,30 @@ $pdo = connect();
     <title>スレッド作成フォーム｜256channel</title>
 </head>
 <body>
-    <?php include_once __DIR__ . "/static/header/header.php"; ?>
+    <?php 
+    include_once __DIR__ . "/static/header/header.php"; 
+    //ユーザーインスタンスの生成
+    $user = new User("email",$_SESSION['login']);
+    
+    if (isset($_POST["title"])) {
+        //スレッドリストに追加。
+        $currentTime = (new DateTime())->format('y.m.d H:i:s');//現在時刻を取得
+        $sql = "INSERT INTO thread_list (title,time,owner_uuid,visit) VALUES (:title,:time,:uuid,0)";
+        $statement = $pdo->prepare($sql);
+        $statement->bindValue(':title',$_POST['title'],PDO::PARAM_STR);
+        $statement->bindValue(':time',$currentTime,PDO::PARAM_STR);
+        $statement->bindValue(':uuid',$user->uuid(),PDO::PARAM_STR);
+        $statement->execute();
+
+        //スレッドIDを取得
+        $threadId = $pdo->lastInsertId();
+        $thread = new Thread($threadId);
+        $thread->new_less($_POST['body'],$user->uuid());
+        // print_r('<pre>');
+	    // print_r($theardId);
+	    // print_r('</pre>');
+    }
+    ?>
     <main>
         <div class="createThread">
             <p class="fs-1">新規スレッド作成</p>
@@ -27,21 +51,6 @@ $pdo = connect();
             </div>
         </div>
     </main>
-    <?php 
-        //ユーザーインスタンスの生成
-        $user = new User("email",$_SESSION['login']);
-        
-        
-        //1月28日、uruzunyaaメモ。
-        //次回、パラメーターがセットされてるか確認し
-        //ここから受け取ったタイトルとbodyを基にDBにデータを挿入
-        //その後、パラメータを付けてthread.phpをページ遷移
-
-
-        //メソッドの呼出しの例
-        //$uuid = $user->uuid();
-    ?>
-    
     <?php include_once __DIR__ . "/static/footer/footer.php"; ?>
 </body>
 </html>`
