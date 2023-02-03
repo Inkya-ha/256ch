@@ -20,6 +20,9 @@
                         <a class="nav-link active" aria-current="page" href="./Privacy">プライバシーポリシー</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="./Contact">お問い合わせ</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="./login">ログイン</a>
                     </li>
                 </ul>
