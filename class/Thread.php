@@ -34,4 +34,27 @@ class Thread{
 		$statement->bindValue(':time',$currentTime,PDO::PARAM_STR);
         $statement->execute();
 	}
+	//スレ内投稿を配列形式で返す
+	function less_list(){
+		$pdo = connect();
+		$sql = "SELECT * FROM contribution_list WHERE  thread_id = :threadid";
+		$statement = $pdo->prepare($sql);
+		$statement->bindValue(':threadid',$this->threadId,PDO::PARAM_STR);
+		$statement->execute();
+		$row = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+		
+		for($i=0;$i<count($row);$i++){
+			$list[$row[$i]['less_id']]['uuid']=$row[$i]['contributor_uuid'];
+			$list[$row[$i]['less_id']]['time']=$row[$i]['time'];
+			//削除した場合に削除の反映
+			if($row[$i]['deleted'] ==0){
+				$list[$row[$i]['less_id']]['body']=$row[$i]['body'];
+			}else{
+				$list[$row[$i]['less_id']]['body']='この投稿は削除されました。';
+			}
+		}
+		
+		return $list;
+	}
 }
