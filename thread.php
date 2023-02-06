@@ -31,11 +31,14 @@ session_start();
             for($i=1;$i<=count($lessList);$i++){
                 echo '<p class="fs-1">' . $i . " " . $lessList[$i]['body'] . '</p>';
             }
-            ?>
-            <form name="contribution" action="" method="POST">
+            if(isset($_SESSION['login'])):?>
+                <form name="contribution" action="" method="POST">
                 <p class="fs-3">レスを投稿<input class="form-control" type="text" name="less" placeholder="クソリプでも許してあげない" required></p>
                 <input type="submit" name="submit" class="createBtn" value="投稿">
-            </form>
+                </form>
+            <?php endif; ?>
+            
+            
         <?php else: ?>
             <p class="fs-1">スレッド一覧</p>
             <div class="thread-list">

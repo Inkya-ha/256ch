@@ -13,6 +13,9 @@ $pdo = connect();
 </head>
 <body>
     <?php 
+    if(!isset($_SESSION['login'])){
+        header("Location: login.php");
+    }
     include_once __DIR__ . "/static/header/header.php"; 
     //ユーザーインスタンスの生成
     $user = new User("email",$_SESSION['login']);
