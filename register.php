@@ -157,7 +157,6 @@ if (isset($_POST['submit'])) {
             <p class="fs-3 text-light">新規登録</p>
             <ion-icon name="mail-outline"></ion-icon>
             <input type="text" name="email" id="user" placeholder="Email"><br>
-            <div class="g-recaptcha" data-sitekey="6LdQNgUkAAAAADuDpwuPAiayncEXsWaeqqsQO1G5"></div>
             <input type="submit" name="submit" value="Register">
             <p class="fs-6">既にアカウントをお持ちですか？<a href="./login">ログイン</a></p>
             <br>

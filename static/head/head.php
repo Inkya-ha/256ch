@@ -11,9 +11,6 @@
 <!--GoogleFontsAPI-->
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
 
-<!--reCAPTCHA-->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
 <!--アクセス解析研究所-->
 <script src="//accaii.com/ch256/script.js" async></script><noscript><img src="//accaii.com/ch256/script?guid=on"></noscript>
 

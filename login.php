@@ -53,7 +53,6 @@ if (isset($_POST['submit'])) {
             <input type="text" name="email" id="user" placeholder="Email"><br>
             <ion-icon name="document-lock-outline"></ion-icon>
             <input type="password" name="password" id="pass" placeholder="Password"><br>
-            <div class="g-recaptcha" data-sitekey="6LdQNgUkAAAAADuDpwuPAiayncEXsWaeqqsQO1G5"></div>
             <input type="submit" name="submit" value="Login">
             <p class="fs-6">アカウントをお持ちでないですか？こちらから<a href="./register">アカウントを作成</a></p>
             <br>
