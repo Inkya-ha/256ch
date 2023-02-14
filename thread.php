@@ -1,10 +1,16 @@
-<?
+<?php
 require_once __DIR__ . "/connect_db.php";//pdo接続用 
 require_once __DIR__ . "/class/User.php";//Userクラス 
 require_once __DIR__ . "/class/Thread.php";//Threadクラス 
 $id = $_GET['id'];
 session_start();
+
+if(!Thread::is_exist($id)) {
+    header("Location: thread_found_failed.php");
+    exit;
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
