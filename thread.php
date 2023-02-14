@@ -1,57 +1,10 @@
-<?php
+<?
 require_once __DIR__ . "/connect_db.php";//pdo接続用 
 require_once __DIR__ . "/class/User.php";//Userクラス 
 require_once __DIR__ . "/class/Thread.php";//Threadクラス 
 $id = $_GET['id'];
 session_start();
-
-class Thread {
-    private $id;
-    private $db;
-
-    function __construct($id) {
-        $this->id = $id;
-        $this->db = connect_db();
-    }
-
-    function less_list() {
-        $stmt = $this->db->prepare("SELECT * FROM less WHERE thread_id = :thread_id");
-        $stmt->bindParam(":thread_id", $this->id, PDO::PARAM_INT);
-        $stmt->execute();
-        $res = array();
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $res[$row['less_id']] = array(
-                "body" => $row['body']
-            );
-        }
-        return $res;
-    }
-
-    function new_less($body, $user_id) {
-        $stmt = $this->db->prepare("INSERT INTO less (thread_id, body, user_id) VALUES (:thread_id, :body, :user_id)");
-        $stmt->bindParam(":thread_id", $this->id, PDO::PARAM_INT);
-        $stmt->bindParam(":body", $body, PDO::PARAM_STR);
-        $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
-        $stmt->execute();
-    }
-
-    static function is_exist($id) {
-        $db = connect_db();
-        $stmt = $db->prepare("SELECT COUNT(*) FROM thread WHERE thread_id = :thread_id");
-        $stmt->bindParam(":thread_id", $id, PDO::PARAM_INT);
-        $stmt->execute();
-        $res = $stmt->fetchColumn();
-        return $res == 1;
-    }
-}
-
-
-if(!Thread::is_exist($id)) {
-    header("Location: thread_found_failed.php");
-    exit;
-}
 ?>
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
