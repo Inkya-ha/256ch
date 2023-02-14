@@ -5,6 +5,22 @@ require_once __DIR__ . "/class/Thread.php";//Threadクラス
 $id = $_GET['id'];
 session_start();
 
+class Thread {
+    // ...
+
+    public function is_exist() {
+        $pdo = connect_db();
+        $stmt = $pdo->prepare('SELECT COUNT(*) FROM threads WHERE id = :id');
+        $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_NUM);
+        return $result[0] > 0;
+    }
+
+    // ...
+}
+
+
 if(!Thread::is_exist($id)) {
     header("Location: thread_found_failed.php");
     exit;
