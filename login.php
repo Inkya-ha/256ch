@@ -47,7 +47,7 @@ if (isset($_POST['submit'])) {
     <?php include_once __DIR__ . "/static/header/header.php"; ?>
 
     <div id="login">
-        <form name="form-login" action="" method="POST">
+        <form name="form-login" action="?" method="POST">
             <p class="fs-3 text-light">ログイン画面</p>
             <ion-icon name="mail-outline"></ion-icon>
             <input type="text" name="email" id="user" placeholder="Email"><br>
