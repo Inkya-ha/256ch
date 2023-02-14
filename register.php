@@ -1,7 +1,7 @@
 <?php
 // タイムゾーンをセット
 // なんとなく上の方がいいかなって
-// by陰キャ男子
+// 陰キャ男子
 date_default_timezone_set("Asia/Tokyo");
 ?>
 
