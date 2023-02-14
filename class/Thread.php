@@ -1,3 +1,10 @@
+<!--
+
+脆弱性テスト求む
+陰キャ男子
+
+-->
+
 <?php 
 require_once __DIR__ . "/../connect_db.php";//pdo接続用 
 class Thread{
@@ -16,7 +23,7 @@ class Thread{
         $pdo = connect();
 		$sql = "SELECT * FROM contribution_list WHERE  thread_id = :threadid";
 		$statement = $pdo->prepare($sql);
-		$statement->bindValue(':threadid',$this->threadId,PDO::PARAM_STR);
+		$statement->bindValue(':threadid',htmlspecialchars($this->threadId, ENT_QUOTES),PDO::PARAM_STR);
 		$statement->execute();
 		$row = $statement->fetchAll(PDO::FETCH_ASSOC);
 		return count($row);
@@ -27,11 +34,11 @@ class Thread{
 		$currentTime = (new DateTime())->format('y.m.d H:i:s');//現在時刻を取得
         $sql = "INSERT INTO contribution_list (thread_id,less_id,body,contributor_uuid,time,deleted) VALUES (:threadid,:lessid,:body,:uuid,:time,0)";
         $statement = $pdo->prepare($sql);
-		$statement->bindValue(':threadid',$this->threadId,PDO::PARAM_STR);
+		$statement->bindValue(':threadid',htmlspecialchars($this->threadId, ENT_QUOTES),PDO::PARAM_STR);
         $statement->bindValue(':lessid',(($this->less_count())+1),PDO::PARAM_STR);
-        $statement->bindValue(':body',$body,PDO::PARAM_STR);
-        $statement->bindValue(':uuid',$uuid,PDO::PARAM_STR);
-		$statement->bindValue(':time',$currentTime,PDO::PARAM_STR);
+        $statement->bindValue(':body',htmlspecialchars($body, ENT_QUOTES),PDO::PARAM_STR);
+        $statement->bindValue(':uuid',htmlspecialchars($uuid, ENT_QUOTES),PDO::PARAM_STR);
+		$statement->bindValue(':time',htmlspecialchars($currentTime, ENT_QUOTES),PDO::PARAM_STR);
         $statement->execute();
 	}
 	//スレ内投稿を配列形式で返す
@@ -39,17 +46,18 @@ class Thread{
 		$pdo = connect();
 		$sql = "SELECT * FROM contribution_list WHERE  thread_id = :threadid";
 		$statement = $pdo->prepare($sql);
-		$statement->bindValue(':threadid',$this->threadId,PDO::PARAM_STR);
+		$statement->bindValue(':threadid',htmlspecialchars($this->threadId, ENT_QUOTES),PDO::PARAM_STR);
 		$statement->execute();
 		$row = $statement->fetchAll(PDO::FETCH_ASSOC);
 
+		$list = array(); // create the array to hold the post data
 		
 		for($i=0;$i<count($row);$i++){
-			$list[$row[$i]['less_id']]['uuid']=$row[$i]['contributor_uuid'];
-			$list[$row[$i]['less_id']]['time']=$row[$i]['time'];
+			$list[$row[$i]['less_id']]['uuid']=htmlspecialchars($row[$i]['contributor_uuid'], ENT_QUOTES);
+			$list[$row[$i]['less_id']]['time']=htmlspecialchars($row[$i]['time'], ENT_QUOTES);
 			//削除した場合に削除の反映
 			if($row[$i]['deleted'] ==0){
-				$list[$row[$i]['less_id']]['body']=$row[$i]['body'];
+				$list[$row[$i]['less_id']]['body']=htmlspecialchars($row[$i]['body'], ENT_QUOTES);
 			}else{
 				$list[$row[$i]['less_id']]['body']='この投稿は削除されました。';
 			}
